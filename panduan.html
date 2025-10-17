@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Panduan Program BERSERI (Bersih & Lestari) DLH Provinsi Jawa Timur: alur, kriteria, dan unduhan dokumen." />
+  <title>Panduan – BERSERI</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon (sesuaikan path/logo) -->
+  <link rel="icon" type="image/png" href="Asset/logo-berseri.png" />
+
+  <style>
+      :root{ --primary:#065F46; --muted:#374151; --border:#E5E7EB; --bg-soft:#F7FAF7; }
+      html { 
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
+      }
+      body { 
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+      .btn { min-height:48px; display:inline-flex; align-items:center; justify-content:center; padding:12px 20px; border-radius:12px; font-weight:600; }
+      .btn-primary { background: var(--primary); color:#fff; border:2px solid var(--primary); }
+      .btn-secondary { background:#fff; color:var(--primary); border:2px solid var(--primary); }
+      .card { background:#fff; border:1px solid var(--border); border-radius:16px; padding:24px; }
+      
+      /* Ensure main content fills available space */
+      main {
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      /* Footer positioning */
+      footer {
+        flex-shrink: 0;
+        width: 100vw;
+        margin-top: auto;
+        position: relative;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-x: hidden;
+        box-sizing: border-box;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+      }
+    </style>
+    <style>
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+      display: inline-block;
+      min-width: 100%;
+      animation: marquee 15s linear infinite;
+      will-change: transform;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    } 
+    
+  </style>
+
+  <style>
+      .card svg path {
+        stroke: var(--primary);
+        transition: all 0.3s ease;
+      }
+      .card:hover svg path {
+        stroke: white;
+        fill: var(--primary);
+    }
+
+    /* Add these new styles for arrows */
+    .card {
+      position: relative;
+    }
+
+    .arrow-right {
+      position: absolute;
+      right: -48px; /* Adjust space between boxes and arrows */
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+
+    .arrow-down {
+      position: absolute;
+      bottom: -48px;
+      left: 50%;
+      transform: translateX(-50%) rotate(90deg);
+      z-index: 10;
+    }
+
+    .arrow-left {
+      position: absolute;
+      right: -48px;
+      top: 50%;
+      transform: translateY(-50%) rotate(180deg);
+      z-index: 10;
+    }
+
+    /* Add this to your existing styles */
+    .arrow-right.point-left {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    /* Sejajarkan posisi kotak tahap 8 */
+    .grid.grid-cols-4 {
+      align-items: start;
+      position: relative;
+    }
+
+    /* Hapus margin yang mungkin mempengaruhi posisi */
+    .card.relative.lg\:col-span-1 {
+      margin: 0;
+    }
+
+    /* Update step 8 positioning */
+    li.card.relative.lg\:col-span-1:nth-child(8) {
+      margin-top: -8rem; /* Pull the box up */
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Adjust spacer height */
+    .col-span-4.h-8 {
+      height: 1rem; /* Reduce the spacer height */
+    }
+  </style>
+  <style>
+/* Button and nav link animations - update these styles */
+.nav-link {
+  position: relative;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.nav-link:hover {
+  background-color: #D1FAE5; /* Light green background */
+  color: #065F46; /* Dark green text */
+  animation: gentleShake 0.3s ease-in-out;
+}
+
+/* Animation for gentle shake */
+@keyframes gentleShake {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-2px); }
+  75% { transform: translateY(2px); }
+  100% { transform: translateY(0); }
+}
+
+/* Button hover animations */
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #064E3B;
+  border-color: #064E3B;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(6, 95, 70, 0.2);
+}
+
+.btn-secondary:hover {
+  background-color: #D1FAE5;
+  color: #065F46;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(6, 95, 70, 0.1);
+}
+
+/* Fix spacing between nav items */
+.md\:flex.items-center.gap-2 {
+  gap: 0.5rem; /* 8px */
+}
+
+/* Add hover effect for dropdown */
+.group:hover .hidden {
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Style dropdown items */
+.group div a {
+  transition: all 0.2s ease;
+}
+
+.group div a:hover {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+
+/* Ensure consistent logo sizing */
+.h-16 {
+  height: 4rem; /* 64px */
+}
+
+/* Add consistent padding to nav */
+.nav-link {
+  padding: 0.5rem 0.75rem;
+}
+
+/* Add this CSS to your style section */
+.download-section {
+    background-color: #F0FDF4;
+    padding: 4rem 0;
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+}
+
+.download-section .content-wrapper {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.download-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.download-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(6, 95, 70, 0.1);
+}
+
+/* Fix spacing in download section */
+.download-section > .content-wrapper > h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+  </style>
+</head>
+<body class="bg-white">
+  <!-- Banner Atas (teks berjalan) -->
+<div id="banner-top" class="w-full bg-gray-100 border-b border-gray-200 overflow-hidden">
+  <div class="whitespace-nowrap animate-marquee py-2 text-gray-700 text-sm font-medium">
+    🌿 Selamat datang di Program Berseri (Bersih & Lestari) – DLH Provinsi Jawa Timur • 
+    📢 Pendaftaran gelombang pertama telah dibuka • 
+    🌱 Mari wujudkan desa bersih, sehat, dan lestari bersama!
+  </div>
+</div>
+<!-- Header (naikkan z-index) -->
+<header class="bg-white border-b sticky top-0 z-[2000]" role="banner" style="border-color: var(--border)">
+  <nav class="max-w-7xl mx-auto px-4 lg:px-6 py-4" role="navigation" aria-label="Navigasi utama">
+    <div class="flex items-center justify-between gap-4">
+      <!-- Logo section -->
+      <a href="beranda.html" class="flex items-center gap-3" aria-label="Berseri Beranda">
+        <img src="Asset/logo-berseri.png" alt="Logo Berseri" class="h-16">
+        <img src="Asset/Logo Kata Berseri.png" alt="Logo DLH" class="h-16">
+      </a>
+
+      <!-- Navigation items with consistent spacing -->
+      <ul class="hidden md:flex items-center gap-2">
+        <li><a href="beranda.html" class="nav-link font-semibold text-[var(--muted)]">Beranda</a></li>
+        <li><a href="tentang.html" class="nav-link font-semibold text-[var(--muted)]">Tentang</a></li>
+        
+        <li class="relative group">
+          <button class="nav-link font-semibold text-[var(--muted)] flex items-center gap-1">
+            Data
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="absolute left-0 hidden group-hover:block mt-1 w-48 bg-white border rounded-lg shadow-lg py-2">
+            <a href="detail-berseri.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700">Detail Berseri</a>
+            <a href="kabupaten-kota.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700">Kabupaten/Kota</a>
+          </div>
+        </li>
+        
+        <li><a href="panduan.html" class="nav-link font-semibold text-[var(--muted)]">Panduan</a></li>
+        <li><a href="pengumuman.html" class="nav-link font-semibold text-[var(--muted)]">Pengumuman</a></li>
+        <li><a href="dashboard.html" class="btn btn-primary no-underline">Dashboard</a></li>
+      </ul>
+
+      <!-- Mobile button -->
+      <button id="mobile-menu-btn"
+        class="md:hidden btn btn-secondary px-3 py-2"
+        aria-controls="mobile-menu" aria-expanded="false" aria-label="Buka menu">
+        <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+        <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- NAV Mobile -->
+    <div id="mobile-menu" class="md:hidden mt-4 hidden" role="menu" tabindex="-1">
+      <ul class="flex flex-col gap-2 bg-[var(--bg-soft)] p-4 rounded-xl border" style="border-color: var(--border)">
+        <li><a href="beranda.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Beranda</a></li>
+        <li><a href="tentang.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Tentang</a></li>
+        <li><a href="panduan.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Panduan</a></li>
+        <li><a href="detail-berseri.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Detail Berseri</a></li>
+        <li><a href="kabupaten-kota.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Kabupaten/Kota</a></li>
+        <li><a href="pengumuman.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Pengumuman</a></li>
+        <li><a href="dashboard.html" class="btn btn-primary w-full no-underline">Dashboard</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+  <main class="flex-1">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6 py-10 space-y-10">
+    <!-- Hero kecil -->
+    <section class="rounded-2xl border p-6 bg-[var(--bg-soft)]" style="border-color:var(--border)">
+      <div class="flex items-start gap-4">
+        <!-- <div class="inline-flex h-12 w-12 rounded-full items-center justify-center bg-emerald-100 text-emerald-700 text-2xl">📋</div> -->
+        <div>
+          <h1 class="text-3xl font-extrabold text-emerald-800 m-0">Panduan Program BERSERI</h1>
+          <p class="text-[var(--muted)] mt-2">Halaman ini memuat langkah, kriteria, dan dokumen yang diperlukan untuk mengikuti Program Bersih & Lestari.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alur/Tahapan -->
+    <section class="space-y-4">
+      <h2 class="text-2xl font-bold text-emerald-800">Tahapan Program</h2>
+      <ol class="grid grid-cols-4 gap-x-16 gap-y-4 relative">
+        <!-- Tahap 1-4 di baris pertama -->
+        <li class="card relative md:col-span-2 lg:col-span-1">
+          <p class="text-sm text-gray-500">Tahap 1</p>
+          <h3 class="font-semibold">Sosialisasi Program</h3>
+          <p class="text-[var(--muted)] mt-1">DLH memberikan informasi resmi mengenai tujuan, manfaat, persyaratan, serta alur program BERSERI kepada masyarakat.</p>
+          <div class="arrow-right hidden lg:block">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 12H20M20 12L14 6M20 12L14 18" 
+                stroke="var(--primary)" 
+                stroke-width="3"
+                stroke-linecap="round" 
+                stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </li>
+        <li class="card relative md:col-span-2 lg:col-span-1">
+          <p class="text-sm text-gray-500">Tahap 2</p>
+          <h3 class="font-semibold">Pengusulan Warga</h3>
+          <p class="text-[var(--muted)] mt-1">Warga membuat akun & mengisi formulir usulan lengkap dengan data serta mengunggah bukti pendukung.</p>
+          <!-- Arrow (updated positioning) -->
+          <div class="arrow-right hidden lg:block">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 12H20M20 12L14 6M20 12L14 18" 
+                stroke="var(--primary)" 
+                stroke-width="3"
+                stroke-linecap="round" 
+                stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </li>
+        <li class="card relative md:col-span-2 lg:col-span-1">
+          <p class="text-sm text-gray-500">Tahap 3</p>
+          <h3 class="font-semibold">Verifikasi DLH Kab/Kota</h3>
+          <p class="text-[var(--muted)] mt-1">Berkas usulan diperiksa oleh DLH kabupaten/kota untuk menilai kelengkapan administrasi dan keabsahan dokumen.</p>
+          <!-- Arrow (updated positioning) -->
+          <div class="arrow-right hidden lg:block">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 12H20M20 12L14 6M20 12L14 18" 
+                stroke="var(--primary)" 
+                stroke-width="3"
+                stroke-linecap="round" 
+                stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </li>
+        <li class="card relative md:col-span-2 lg:col-span-1">
+          <p class="text-sm text-gray-500">Tahap 4</p>
+          <h3 class="font-semibold">Pembinaan & Pendampingan</h3>
+          <p class="text-[var(--muted)] mt-1">Peserta yang lolos verifikasi mendapatkan pendampingan teknis dari DLH kabupaten/kota.</p>
+          <!-- Panah kebawah untuk tahap 4 -->
+          <div class="arrow-down hidden lg:block">
+        <!-- Tahap 5-7 di baris kedua -->
+        <div class="hidden lg:block col-span-1"></div>
+        <li class="card lg:col-span-1 lg:col-start-2">
+          <p class="text-sm text-gray-500">Tahap 7</p>
+          <h3 class="font-semibold">Monitoring & Evaluasi</h3>
+          <p class="text-[var(--muted)] mt-1">Pemantauan berkelanjutan untuk memastikan keberlangsungan program dan inovasi lingkungan.</p>
+          <!-- Di dalam tahap 7, tambahkan arrow pointing left -->
+          <div class="arrow-right point-left hidden lg:block" style="left: -48px; right: auto;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 12H20M20 12L14 6M20 12L14 18" 
+                stroke="var(--primary)" 
+                stroke-width="3"
+                stroke-linecap="round" 
+                stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </li>
+        <li class="card relative lg:col-span-1">
+          <p class="text-sm text-gray-500">Tahap 6</p>
+          <h3 class="font-semibold">Penetapan Pemenang</h3>
+          <p class="text-[var(--muted)] mt-1">Hasil seleksi diumumkan secara resmi melalui situs program BERSERI dan dashboard peserta.</p>
+          <!-- Update to left-pointing arrow -->
+          <div class="arrow-right point-left hidden lg:block" style="left: -48px; right: auto;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 12H20M20 12L14 6M20 12L14 18" 
+                stroke="var(--primary)" 
+                stroke-width="3"
+                stroke-linecap="round" 
+                stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </li>
+        <li class="card relative lg:col-span-1">
+          <p class="text-sm text-gray-500">Tahap 5</p>
+          <h3 class="font-semibold">Seleksi & Penilaian Provinsi</h3>
+          <p class="text-[var(--muted)] mt-1">DLH provinsi melakukan seleksi lanjutan berupa penilaian administrasi, pemeriksaan dokumen, serta verifikasi lapangan.</p>
+          <!-- Move arrow to the left side -->
+          <div class="arrow-right point-left hidden lg:block" style="left: -48px; right: auto;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 12H20M20 12L14 6M20 12L14 18" 
+                stroke="var(--primary)" 
+                stroke-width="3"
+                stroke-linecap="round" 
+                stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </li>
+        <!-- Tahap 8 (updated) -->
+        <li class="card relative lg:col-span-1">
+          <p class="text-sm text-gray-500">Tahap 8</p>
+          <h3 class="font-semibold">Penilaian Lapangan</h3>
+          <p class="text-[var(--muted)] mt-1">DLH Provinsi melakukan penilaian lapangan untuk verifikasi dan evaluasi akhir.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Unduhan Dokumen -->
+    <section class="download-section">
+    <div class="content-wrapper">
+        <h2 class="text-2xl font-bold">Unduhan Dokumen</h2>
+        <div class="grid gap-4 md:grid-cols-2">
+            <!-- Contoh kartu download -->
+            <article class="download-card card flex items-start gap-4">
+                <div class="inline-flex h-12 w-12 rounded-full items-center justify-center bg-emerald-100 text-emerald-700 text-2xl">📄</div>
+                <div class="flex-1">
+                    <h3 class="font-semibold">Buku Panduan Program (PDF)</h3>
+                    <p class="text-[var(--muted)] mt-1">Ringkasan aturan & kriteria penilaian.</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <a href="downloads/buku-panduan.pdf" class="btn btn-primary no-underline" download>Download</a>
+                        <a href="downloads/buku-panduan.pdf" class="btn btn-secondary no-underline" target="_blank" rel="noopener">Lihat</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="download-card card flex items-start gap-4">
+              <div class="inline-flex h-12 w-12 rounded-full items-center justify-center bg-emerald-100 text-emerald-700 text-2xl">🧾</div>
+              <div class="flex-1">
+                <h3 class="font-semibold">Template Form Rekap (XLSX)</h3>
+                <p class="text-[var(--muted)] mt-1">Format rekap pengelolaan & penilaian.</p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <a href="downloads/template-rekap.xlsx" class="btn btn-primary no-underline" download>Download</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="download-card card flex items-start gap-4">
+              <div class="inline-flex h-12 w-12 rounded-full items-center justify-center bg-emerald-100 text-emerald-700 text-2xl">🖼️</div>
+              <div class="flex-1">
+                <h3 class="font-semibold">Poster Sosialisasi (PNG)</h3>
+                <p class="text-[var(--muted)] mt-1">Materi publikasi untuk desa/kelurahan.</p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <a href="downloads/poster.png" class="btn btn-primary no-underline" download>Download</a>
+                  <a href="downloads/poster.png" class="btn btn-secondary no-underline" target="_blank" rel="noopener">Lihat</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="download-card card flex items-start gap-4">
+              <div class="inline-flex h-12 w-12 rounded-full items-center justify-center bg-emerald-100 text-emerald-700 text-2xl">📝</div>
+              <div class="flex-1">
+                <h3 class="font-semibold">Surat Pernyataan (DOCX)</h3>
+                <p class="text-[var(--muted)] mt-1">Contoh surat pernyataan dukungan.</p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <a href="downloads/surat-pernyataan.docx" class="btn btn-primary no-underline" download>Download</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <p class="text-sm text-gray-600 mt-4">Catatan: letakkan berkas di folder <code>downloads/</code> sesuai tautan di atas atau sesuaikan href-nya.</p>
+        </div>
+    </section>
+    </div>
+  </main>
+
+    <!-- Footer -->
+    <footer class="bg-emerald-800 text-white py-12 mt-auto w-full">
+        <div class="max-w-7xl mx-auto px-4 lg:px-6">
+            <div class="grid gap-8 md:grid-cols-3">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Hubungi Kami</h3>
+                    <address class="not-italic space-y-3">
+                        <div class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <p class="text-sm">Jl. Wisata Menanggal No.38, Dukuh Menanggal, Kec. Gayungan, Surabaya, Jawa Timur 60234</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <p class="text-sm">(031) 8290186</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <p class="text-sm">dlh@jatimprov.go.id</p>
+                        </div>
+                    </address>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Tautan</h3>
+                    <ul class="space-y-2">
+                        <li><a href="beranda.html" class="text-sm hover:underline">Beranda</a></li>
+                        <li><a href="tentang.html" class="text-sm hover:underline">Tentang BERSERI</a></li>
+                        <li><a href="panduan.html" class="text-sm hover:underline">Panduan</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Media Sosial</h3>
+                    <div class="flex items-center gap-2">
+                        <a href="https://facebook.com/BerseriJatim" target="_blank" rel="noopener noreferrer" 
+                           class="text-white hover:text-emerald-200 transition-colors">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                            </svg>
+                            <span class="text-sm">BerseriJatim</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-8 mt-8 border-t border-emerald-700">
+                <p class="text-sm">© <span id="year">2023</span> BERSERI - Dinas Lingkungan Hidup Provinsi Jawa Timur</p>
+            </div>
+        </div>
+    </footer>
+
+  <script src="js/main.js" defer></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

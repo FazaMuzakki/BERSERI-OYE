@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form Penilaian Lapangan – BERSERI</title>
+    <link rel="icon" type="image/png" href="Asset/logo-berseri.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root{ --primary:#065F46; --muted:#374151; --border:#E5E7EB; --bg-soft:#F7FAF7; }
+        body{ font-size:18px; }
+        .btn{ min-height:48px; display:inline-flex; align-items:center; justify-content:center; padding:12px 20px; border-radius:12px; font-weight:600; }
+        .btn-primary{ background:var(--primary); color:#fff; border:2px solid var(--primary); }
+        .btn-secondary{ background:#fff; color:var(--primary); border:2px solid var(--primary); }
+        .card{ background:#fff; border:1px solid var(--border); border-radius:16px; }
+        .input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+        }
+        .input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(6,95,70,0.1);
+        }
+        /* Loading indicator */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        /* Progress dots */
+        .step-dots {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .step-dot {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            background: #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #4B5563;
+        }
+        .step-dot.active {
+            background: var(--primary);
+            color: white;
+        }
+        .step-dot.complete {
+            background: #059669;
+            color: white;
+        }
+
+        /* Add to your existing styles */
+        .overflow-y-auto {
+            scrollbar-width: thin;
+            scrollbar-color: #E5E7EB transparent;
+        }
+            
+        .overflow-y-auto::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .overflow-y-auto::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+            background-color: #E5E7EB;
+            border-radius: 3px;
+        }
+        
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background-color: #D1D5DB;
+        }
+
+        /* Step Label Styles */
+        .step-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            margin: 0 4px;
+            border-radius: 50%;
+            font-weight: 600;
+            color: #065F46;
+            cursor: pointer;
+            border: 2px solid #10B981;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .step-label[aria-current="step"] {
+            background: #10B981;
+            color: white;
+        }
+
+        .step-label:hover {
+            background: #D1FAE5;
+        }
+
+        .step-label:focus {
+            outline: 2px solid #059669;
+            outline-offset: 2px;
+        }
+    </style>
+    <style>
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+        display: inline-block;
+        min-width: 100%;
+        animation: marquee 15s linear infinite;
+        will-change: transform;
+    }
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
+    </style>
+</head>
+<body class="bg-white min-h-screen">
+    <!-- Banner Atas (teks berjalan) -->
+    </div>
+    <!-- Header -->
+    <header class="bg-white border-b sticky top-0 z-[2000]" role="banner" style="border-color: var(--border)">
+        <nav class="max-w-7xl mx-auto px-4 lg:px-6 py-4" role="navigation" aria-label="Navigasi utama">
+            <div class="flex items-center justify-between gap-4">
+                <a href="beranda.html" class="flex items-center gap-3" aria-label="Berseri Beranda">
+                    <img src="Asset/logo-berseri.png" alt="Logo Berseri" class="h-16">
+                    <img src="Asset/Logo Kata Berseri.png" alt="Logo DLH" class="h-16">
+                </a>
+
+                <!-- NAV Desktop -->
+                <ul class="hidden md:flex items-center gap-6">
+                    <li><a href="tentang.html" class="nav-link font-semibold text-[var(--muted)]">Tentang</a></li>
+                    
+                    <!-- Data dropdown -->
+                    <li class="relative group">
+                        <button class="nav-link font-semibold text-[var(--muted)] flex items-center gap-2">
+                            Data
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div class="absolute left-0 hidden group-hover:block mt-1 w-48 bg-white border rounded-lg shadow-lg py-2">
+                            <a href="detail-berseri.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700">Detail Berseri</a>
+                            <a href="kabupaten-kota.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700">Kabupaten Kota</a>
+                        </div>
+                    </li>
+                    
+                    <li><a href="panduan.html" class="nav-link font-semibold text-[var(--muted)]">Panduan</a></li>
+                    <li><a href="pengumuman.html" class="nav-link font-semibold text-[var(--muted)]">Pengumuman</a></li>
+                    <li><a href="dashboard.html" class="btn btn-primary no-underline">Dashboard</a></li>
+                </ul>
+
+                <!-- Mobile button -->
+                <button id="mobile-menu-btn"
+                    class="md:hidden btn btn-secondary px-3 py-2"
+                    aria-controls="mobile-menu" aria-expanded="false" aria-label="Buka menu">
+                    <!-- Icon default (menu / hamburger) -->
+                    <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
+                    </svg>
+                    <!-- Icon X (tutup) -->
+                    <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- NAV Mobile -->
+            <div id="mobile-menu" class="md:hidden mt-4 hidden" role="menu" tabindex="-1">
+                <ul class="flex flex-col gap-2 bg-[var(--bg-soft)] p-4 rounded-xl border" style="border-color: var(--border)">
+                    <li><a href="tentang.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Tentang</a></li>
+                    <li><a href="panduan.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Panduan</a></li>
+                    <li><a href="detail-berseri.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Detail Berseri</a></li>
+                    <li><a href="kabupaten-kota.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Kabupaten Kota</a></li>
+                    <li><a href="pengumuman.html" class="block px-2 py-2 rounded hover:bg-white nav-link">Pengumuman</a></li>
+                    <li><a href="dashboard.html" class="btn btn-primary w-full no-underline">Dashboard</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 lg:px-6 py-8">
+        <div class="space-y-6">
+            <!-- Summary -->
+            <div class="card p-4" id="summarySection">
+                <h2 class="text-lg font-bold text-emerald-800 mb-3">Ringkasan Penilaian</h2>
+                
+                <!-- Data Penilaian Mandiri -->
+                <div class="p-3 rounded-lg bg-white border mb-3">
+                    <div class="flex flex-wrap gap-4 justify-between">
+                        <div class="flex-1 min-w-[200px]">
+                            <div class="flex items-baseline gap-2">
+                                <h3 class="text-sm font-medium text-emerald-800">Wilayah:</h3>
+                                <p class="font-semibold" id="namaWilayah">-</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-0.5" id="lokasiWilayah">-</p>
+                            <div class="flex items-baseline gap-2 mt-1">
+                                <span class="text-sm font-medium text-emerald-800">Target:</span>
+                                <span class="text-sm text-gray-600" id="kategoriDituju">-</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="flex items-center justify-end gap-2">
+                                <p class="font-semibold" id="statusPenilaianMandiri">-</p>
+                                <span id="badgeMandiri" class="px-2 py-0.5 text-xs font-medium rounded-full"></span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-0.5" id="skorMandiri">Skor: 0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Penilaian Lapangan -->
+                <div class="border rounded-lg p-3">
+                    <div class="flex flex-wrap gap-4">
+                        <!-- Skor & Status -->
+                        <div class="flex-1 min-w-[200px]">
+                            <div class="flex items-baseline gap-3">
+                                <h3 class="text-sm font-medium text-emerald-800">Skor Total:</h3>
+                                <p class="text-2xl font-bold text-emerald-800" id="totalSkorLapangan">0</p>
+                            </div>
+                            <div class="mt-1" id="statusLapanganBadge">
+                                <!-- Badge will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Komponen -->
+                        <div class="flex-1 min-w-[200px]">
+                            <h3 class="text-sm font-medium text-emerald-800 mb-1">Skor Komponen:</h3>
+                            <div class="grid grid-cols-3 md:grid-cols-4 gap-x-3 gap-y-1 text-xs" id="komponenScores">
+                                <!-- Component scores will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress bar -->
+                    <div class="mt-3">
+                        <!-- Section Score -->
+                        <div class="mb-3">
+                            <span class="text-emerald-700 font-medium text-sm">Skor Saat Ini:</span>
+                            <span id="LapanganSectionScore" class="ml-2 font-bold">0</span>
+                        </div>
+                        
+                        <!-- Progress -->
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-emerald-700 font-medium">Progress Penilaian</span>
+                            <span class="text-gray-600" id="progressText">0 dari 0 Komponen</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5">
+                            <div class="bg-emerald-600 h-1.5 rounded-full" id="progressBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress ABCDEF -->
+            <div class="card p-6" id="progressSection">
+                <h2 class="text-2xl font-bold text-emerald-800 mb-4">Form Penilaian Lapangan</h2>
+                <p class="text-gray-600 mb-6">
+                    Verifikasi dan dokumentasi penilaian mandiri melalui kunjungan lapangan
+                </p>
+                
+                <!-- Step Labels -->
+                <div class="flex flex-wrap gap-2 mb-4 ml-2" id="stepLabels">
+                    <button class="step-label" data-section="A. KEPEMIMPINAN DALAM PENGELOLAAN LINGKUNGAN" aria-current="step">A</button>
+                    <button class="step-label" data-section="B. KELEMBAGAAN DAN PARTISIPASI MASYARAKAT">B</button>
+                    <button class="step-label" data-section="C. PENGELOLAAN SAMPAH">C</button>
+                    <button class="step-label" data-section="D. PENGELOLAAN RUANG TERBUKA HIJAU">D</button>
+                    <button class="step-label" data-section="E. KONSERVASI ENERGI">E</button>
+                    <button class="step-label" data-section="F. KONSERVASI AIR">F</button>
+                </div>
+
+                <div class="step-dots hidden" id="stepDots"></div>
+            </div>
+
+            <!-- Form -->
+            <form id="formLapangan" class="space-y-6">
+                <!-- Questions will be rendered here -->
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-emerald-800 text-white py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 lg:px-6">
+            <div class="grid gap-8 md:grid-cols-3">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Hubungi Kami</h3>
+                    <address class="not-italic space-y-3">
+                        <div class="flex items-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <p class="text-sm">Jl. Wisata Menanggal No.38, Dukuh Menanggal, Kec. Gayungan, Surabaya, Jawa Timur 60234</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <p class="text-sm">(031) 8290186</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <p class="text-sm">dlh@jatimprov.go.id</p>
+                        </div>
+                    </address>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Tautan</h3>
+                    <ul class="space-y-2">
+                        <li><a href="beranda.html" class="text-sm hover:underline">Beranda</a></li>
+                        <li><a href="tentang.html" class="text-sm hover:underline">Tentang BERSERI</a></li>
+                        <li><a href="panduan.html" class="text-sm hover:underline">Panduan</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media -->
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Media Sosial</h3>
+                    <div class="flex items-center gap-2">
+                        <a href="https://facebook.com/BerseriJatim" target="_blank" rel="noopener noreferrer" 
+                           class="text-white hover:text-emerald-200 transition-colors">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                            </svg>
+                            <span class="text-sm">BerseriJatim</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-8 mt-8 border-t border-emerald-700">
+                <p class="text-sm">© <span id="year">2024</span> BERSERI - Dinas Lingkungan Hidup Provinsi Jawa Timur</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading indicator -->
+    <div class="loading hidden" id="loadingOverlay">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-emerald-800 border-t-transparent"></div>
+            <p class="mt-4 text-emerald-800 font-semibold">Memuat...</p>
+        </div>
+    </div>
+
+    <!-- Tombol Kembali & Simpan -->
+    <div class="fixed bottom-4 right-4 flex gap-4">
+        <button id="backButton" class="btn btn-secondary flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-11.707a1 1 0 00-1.414 0L9 9.586V6a1 1 0 00-2 0v5a1 1 0 00.293.707l4 4a1 1 0 001.414-1.414L9.414 11H14a1 1 0 000-2H9.414l3.293-3.293a1 1 0 000-1.414z" clip-rule="evenodd"/>
+            </svg>
+            Kembali
+        </button>
+        <button id="saveButton" class="btn btn-primary flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+            </svg>
+            Simpan
+        </button>
+    </div>
+
+    <script src="js/penilaian-lapangan-form-config.js"></script>
+    <script src="js/penilaian-lapangan-form-handler.js"></script>
+    <script src="js/penilaian-lapangan-form-new.js"></script>
+    <script>
+        // Ensure configs are loaded before initializing
+        window.addEventListener('load', function() {
+            if (typeof window.LAPANGAN_CONFIG !== 'undefined') {
+                window.initPenilaianLapangan();
+            } else {
+                console.error('LAPANGAN_CONFIG not loaded');
+                alert('Terjadi kesalahan saat memuat konfigurasi. Silakan muat ulang halaman.');
+            }
+        });
+    </script>
+    <script>
+        // Fungsi untuk menangani klik pada tombol bab
+        document.addEventListener('DOMContentLoaded', function() {
+            const stepLabels = document.querySelectorAll('.step-label');
+            
+            stepLabels.forEach(label => {
+                label.addEventListener('click', function() {
+                    // Hapus status aktif dari semua tombol
+                    stepLabels.forEach(btn => btn.removeAttribute('aria-current'));
+                    
+                    // Set status aktif pada tombol yang diklik
+                    this.setAttribute('aria-current', 'step');
+                    
+                    // Dapatkan section yang sesuai
+                    const sectionTitle = this.dataset.section;
+                    
+                    // Temukan elemen dengan judul yang sesuai
+                    const sections = document.querySelectorAll('#formLapangan > div');
+                    for (let section of sections) {
+                        const titleElement = section.querySelector('h3');
+                        if (titleElement && titleElement.textContent.trim() === sectionTitle) {
+                            // Scroll ke section dengan offset untuk header
+                            const headerOffset = 100;
+                            const elementPosition = section.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                            
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: "smooth"
+                            });
+                            break;
+                        }
+                    }
+                });
+            });
+            
+            // Set tombol A sebagai aktif secara default
+            const defaultButton = document.querySelector('.step-label[data-section="A. KEPEMIMPINAN DALAM PENGELOLAAN LINGKUNGAN"]');
+            if (defaultButton) {
+                defaultButton.setAttribute('aria-current', 'step');
+            }
+
+            // Tambahkan event listener untuk scroll
+            window.addEventListener('scroll', function() {
+                // Temukan semua section
+                const sections = document.querySelectorAll('#formLapangan > div');
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const titleElement = section.querySelector('h3');
+                    if (titleElement) {
+                        const sectionTop = section.offsetTop;
+                        const sectionHeight = section.offsetHeight;
+                        if (window.pageYOffset >= sectionTop - 150 && window.pageYOffset < sectionTop + sectionHeight - 150) {
+                            currentSection = titleElement.textContent.trim();
+                        }
+                    }
+                });
+                
+                // Update active button
+                if (currentSection) {
+                    stepLabels.forEach(btn => {
+                        if (btn.dataset.section === currentSection) {
+                            btn.setAttribute('aria-current', 'step');
+                        } else {
+                            btn.removeAttribute('aria-current');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
